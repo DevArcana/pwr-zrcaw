@@ -1,13 +1,12 @@
 import { Component } from "solid-js";
-import { useAuthContext } from "../contexts/auth";
+import styles from "./Authenticated.module.css";
+import UsersList from "../components/UsersList";
 
 const Authenticated: Component = () => {
-  const { getAuthState, logOut } = useAuthContext();
   return (
-    <div>
-      <div>Hello, {getAuthState().username}</div>
-      <button onClick={logOut}>log out</button>
-    </div>
+    <main class={styles.main}>
+      <UsersList/>
+    </main>
   );
 };
 

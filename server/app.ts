@@ -1,8 +1,31 @@
-import express, { Request, Response, NextFunction } from 'express';
+const httpServer = require("http").createServer();
 
-const app = express();
-const port = 3000;
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 
-app.listen(port, () => {
-    console.log(`App running on port ${port}`)
-})
+io.use((socket, next) => {
+  const username = socket.handshake.auth.username;
+
+  if (!username) {
+    return next(new Error("invalid username"));
+  }
+
+  socket.username = username;
+
+  next();
+});
+
+io.on("connection", (socket) => {
+
+});
+
+io.on("disconnect", (socket) => {
+
+});
+
+httpServer.listen(3001, () => {
+  console.log("listening");
+});

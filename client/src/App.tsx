@@ -8,12 +8,12 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 const App: Component = () => {
-  const { getAuthState } = useAuthContext();
+  const { getIsAuthenticated } = useAuthContext();
 
   return (
     <>
       <Navbar/>
-      <Show when={getAuthState().isAuthenticated} fallback={<Unauthenticated/>}>
+      <Show when={getIsAuthenticated()} fallback={<Unauthenticated/>}>
         <Authenticated/>
       </Show>
       <Footer/>
