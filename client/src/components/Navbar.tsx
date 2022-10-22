@@ -1,16 +1,19 @@
-import { Component } from "solid-js";
-import { css } from "solid-styled";
+import { Component, Show } from "solid-js";
+import { useAuthContext } from "../contexts/auth";
+
+import styles from "./Navbar.module.css";
 
 const Navbar: Component = () => {
 
-  css`
-    nav {
-      padding: var(--size-2);
-    }
-  `;
+  const { getAuthState, logOut } = useAuthContext();
 
   return (
-    <nav>TicTacToe Online</nav>
+    <nav class={styles.nav}>
+      <span>TicTacToe Online</span>
+      <Show when={getAuthState().isAuthenticated}>
+        <span>Welcome, {getAuthState().username}! <a href="#" onClick={logOut}>Log out here.</a></span>
+      </Show>
+    </nav>
   );
 };
 

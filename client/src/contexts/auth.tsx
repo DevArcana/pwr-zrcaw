@@ -15,7 +15,7 @@ const makeContext = () => {
   const logIn = (username: string) => setUsername(username);
   const logOut = () => setUsername(undefined);
 
-  return {getAuthState, logIn, logOut} as const;
+  return { getAuthState, logIn, logOut } as const;
 };
 
 type ContextType = ReturnType<typeof makeContext>
