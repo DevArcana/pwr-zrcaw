@@ -4,7 +4,7 @@ import styles from "./Unauthenticated.module.css";
 
 const Unauthenticated: Component = () => {
   const { getErrorMessage, logIn } = useAuthContext();
-  const [getUsername, setUsername] = createSignal<string>();
+  const [ getUsername, setUsername ] = createSignal<string>();
 
   const onUsernameChange: JSX.EventHandler<HTMLInputElement, InputEvent> = (event) => {
     const target = event.target as HTMLInputElement;

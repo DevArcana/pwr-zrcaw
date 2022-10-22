@@ -1,13 +1,4 @@
-import {
-  batch,
-  createContext,
-  createEffect,
-  createSignal,
-  onCleanup,
-  onMount,
-  ParentComponent,
-  useContext,
-} from "solid-js";
+import { batch, createContext, createSignal, onCleanup, onMount, ParentComponent, useContext } from "solid-js";
 import { io } from "socket.io-client";
 
 const key = "username";
@@ -15,9 +6,9 @@ const URL = "http://localhost:3001";
 const socket = io(URL, { autoConnect: false });
 
 const makeContext = () => {
-  const [getUsername, setUsername] = createSignal<string | undefined>();
-  const [getErrorMessage, setErrorMessage] = createSignal<string | undefined>();
-  const [getIsAuthenticated, setIsAuthenticated] = createSignal(false);
+  const [ getUsername, setUsername ] = createSignal<string | undefined>();
+  const [ getErrorMessage, setErrorMessage ] = createSignal<string | undefined>();
+  const [ getIsAuthenticated, setIsAuthenticated ] = createSignal(false);
 
   const logIn = (username: string) => {
     if (socket.connected) {
@@ -74,7 +65,7 @@ const makeContext = () => {
       });
 
       socket.disconnect();
-    })
+    });
 
     const username = window.localStorage.getItem(key);
     if (username) {
@@ -85,7 +76,7 @@ const makeContext = () => {
   onCleanup(() => {
     socket.off("connect_error");
     socket.off("connect");
-    socket.off("disconnect")
+    socket.off("disconnect");
   });
 
   return { getUsername, getErrorMessage, getIsAuthenticated, logIn, logOut, socket } as const;

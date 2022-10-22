@@ -1,11 +1,13 @@
-const httpServer = require("http").createServer();
+import { GameServer } from "./models/socket";
+import { addPlayersFeature } from "./players";
 
-const io = require("socket.io")(httpServer, {
+const io = new GameServer({
   cors: {
     origin: "http://localhost:3000",
   },
 });
 
+// validate username
 io.use((socket, next) => {
   const username = socket.handshake.auth.username;
 
@@ -13,19 +15,11 @@ io.use((socket, next) => {
     return next(new Error("invalid username"));
   }
 
-  socket.username = username;
+  socket.data.username = username;
 
   next();
 });
 
-io.on("connection", (socket) => {
+addPlayersFeature(io);
 
-});
-
-io.on("disconnect", (socket) => {
-
-});
-
-httpServer.listen(3001, () => {
-  console.log("listening");
-});
+io.listen(3001);

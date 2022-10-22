@@ -6,6 +6,7 @@ const Authenticated: Component = () => {
   return (
     <main class={styles.main}>
       <UsersList/>
+      <div></div>
     </main>
   );
 };
