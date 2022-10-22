@@ -1,6 +1,17 @@
 /* the props */
 @import "open-props/style";
+
+/* normalize */
 @import "open-props/normalize";
+
+/* make buttons pretty */
+@import "open-props/buttons";
+
+/* individual imports */
+@import "open-props/easings";
+@import "open-props/animations";
+@import "open-props/sizes";
+@import "open-props/gradients";
 
 body {
   margin: 0;
@@ -9,6 +20,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 code {
