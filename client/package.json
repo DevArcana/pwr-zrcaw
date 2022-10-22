@@ -12,10 +12,13 @@
   "devDependencies": {
     "typescript": "^4.8.2",
     "vite": "^3.0.9",
-    "vite-plugin-solid": "^2.3.0"
+    "vite-plugin-solid": "^2.3.0",
+    "vite-plugin-solid-styled": "^0.7.3"
   },
   "dependencies": {
+    "open-props": "^1.4.16",
     "socket.io-client": "^4.5.3",
-    "solid-js": "^1.5.1"
+    "solid-js": "^1.5.1",
+    "solid-styled": "^0.7.3"
   }
 }
