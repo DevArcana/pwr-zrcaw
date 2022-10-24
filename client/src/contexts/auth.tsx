@@ -1,14 +1,17 @@
 import { batch, createContext, createSignal, onCleanup, onMount, ParentComponent, useContext } from "solid-js";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
+import { ClientToServerEvents, ServerToClientEvents } from "../shared/messages";
+import { Player } from "../shared/player";
 
 const key = "username";
 const URL = "http://localhost:3001";
-const socket = io(URL, { autoConnect: false });
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, { autoConnect: false });
 
 const makeContext = () => {
   const [ getUsername, setUsername ] = createSignal<string | undefined>();
   const [ getErrorMessage, setErrorMessage ] = createSignal<string | undefined>();
   const [ getIsAuthenticated, setIsAuthenticated ] = createSignal(false);
+  const [ getPlayer, setPlayer ] = createSignal<Player>()
 
   const logIn = (username: string) => {
     if (socket.connected) {
@@ -33,6 +36,7 @@ const makeContext = () => {
 
     batch(() => {
       setUsername(undefined);
+      setPlayer(undefined);
       window.localStorage.removeItem(key);
       setIsAuthenticated(false);
       setErrorMessage(undefined);
@@ -43,6 +47,7 @@ const makeContext = () => {
     socket.on("connect_error", (err) => {
       batch(() => {
         setUsername(undefined);
+        setPlayer(undefined);
         window.localStorage.removeItem(key);
         setIsAuthenticated(false);
         setErrorMessage(err.message);
@@ -59,6 +64,7 @@ const makeContext = () => {
     socket.on("disconnect", () => {
       batch(() => {
         setUsername(undefined);
+        setPlayer(undefined);
         window.localStorage.removeItem(key);
         setIsAuthenticated(false);
         setErrorMessage("lost connection");
@@ -66,6 +72,10 @@ const makeContext = () => {
 
       socket.disconnect();
     });
+
+    socket.on("self", (player: Player) => {
+      setPlayer(player);
+    })
 
     const username = window.localStorage.getItem(key);
     if (username) {
@@ -77,9 +87,10 @@ const makeContext = () => {
     socket.off("connect_error");
     socket.off("connect");
     socket.off("disconnect");
+    socket.off("self");
   });
 
-  return { getUsername, getErrorMessage, getIsAuthenticated, logIn, logOut, socket } as const;
+  return { getUsername, getPlayer, getErrorMessage, getIsAuthenticated, logIn, logOut, socket } as const;
 };
 
 type ContextType = ReturnType<typeof makeContext>

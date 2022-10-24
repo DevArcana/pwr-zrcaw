@@ -1,21 +1,10 @@
 import { Server, Socket } from "socket.io";
-import { Player } from "./player";
+import { ClientToServerEvents, ServerToClientEvents } from "../shared/messages";
 
-interface ServerToClientEvents {
-  players_list: (players: Player[]) => void;
-  players_joined: (player: Player) => void;
-  players_left: (player: Player) => void;
+export interface InterServerEvents {
 }
 
-interface ClientToServerEvents {
-  players_start_watching: () => void;
-  players_stop_watching: () => void;
-}
-
-interface InterServerEvents {
-}
-
-interface SocketData {
+export interface SocketData {
   username: string;
 }
 

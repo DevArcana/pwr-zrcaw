@@ -1,5 +1,6 @@
 import { GameServer } from "./models/socket";
 import { addPlayersFeature } from "./players";
+import { addLobbyFeature } from "./lobby";
 
 const io = new GameServer({
   cors: {
@@ -21,5 +22,6 @@ io.use((socket, next) => {
 });
 
 addPlayersFeature(io);
+addLobbyFeature(io);
 
 io.listen(3001);
