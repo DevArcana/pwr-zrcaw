@@ -2,6 +2,7 @@ import { Component, createSignal, Match, Show, Switch } from "solid-js";
 import styles from "./Authenticated.module.css";
 import UsersList from "../components/UsersList";
 import { useAuthContext } from "../contexts/auth";
+import GameBoard from "../components/GameBoard";
 
 const Authenticated: Component = () => {
   const { getPlayer, socket } = useAuthContext();
@@ -27,7 +28,6 @@ const Authenticated: Component = () => {
     <main class={styles.main}>
       <UsersList/>
       <div class={styles.center}>
-        <div>{getPlayer()?.status}</div>
         <Switch>
           <Match when={getPlayer()?.status == "idle"}>
             <button disabled={getSending()} onClick={enterLobby}>enter lobby</button>
@@ -36,7 +36,7 @@ const Authenticated: Component = () => {
             <button disabled={getSending()} onClick={leaveLobby}>leave lobby</button>
           </Match>
           <Match when={getPlayer()?.status == "in-game"}>
-            <div>you are in game</div>
+            <GameBoard/>
           </Match>
         </Switch>
       </div>
