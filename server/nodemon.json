@@ -1,6 +1,0 @@
-{
-  "events": {
-    "start": "cp -fR shared/ ../client/src/shared/",
-    "restart": "cp -fR shared/ ../client/src/shared/"
-  }
-}
