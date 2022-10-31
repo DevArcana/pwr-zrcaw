@@ -1,0 +1,5 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--size-4);
+}

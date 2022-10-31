@@ -59,7 +59,9 @@ const GameBoard: Component = () => {
         <div class={styles.board}>
           {getState()?.board.map((cell, index) => <button class={styles.cell} onClick={() => makeMove(index)}>{cell}</button>)}
         </div>
-        <button class={styles.resign} onClick={() => socket.emit("game_leave")}>Resign</button>
+        <Show when={getState()?.status === "in-progress"} fallback={<button class={styles.leave} onClick={() => socket.emit("game_leave")}>Leave</button>}>
+          <button class={styles.resign} onClick={() => socket.emit("game_leave")}>Resign</button>
+        </Show>
       </div>
     </Show>
   );
