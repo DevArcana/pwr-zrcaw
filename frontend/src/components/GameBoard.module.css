@@ -1,0 +1,49 @@
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+  padding: var(--size-2);
+  background-color: white;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-4);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+}
+
+.board {
+  padding: var(--size-2);
+  background-color: white;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-4);
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto auto auto;
+  gap: var(--size-2);
+  width: fit-content;
+  height: fit-content;
+}
+
+.cell {
+  width: 64px;
+  height: 64px;
+  background-color: whitesmoke;
+  border-radius: var(--radius-2);
+}
+
+.turn_indicator {
+  padding: var(--size-2);
+  background-color: white;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-4);
+}
+
+.resign {
+  color: whitesmoke;
+  background-color: red;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-4);
+}
