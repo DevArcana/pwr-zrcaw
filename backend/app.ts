@@ -17,18 +17,18 @@ io.use((socket, next) => {
 
   socket.data = {
     username,
-    status: "idle"
+    status: "idle",
   };
 
   next();
 });
 
 io.on("connect", (socket) => {
-  console.log(`Player ${socket.data.username} connected`)
+  console.log(`Player ${socket.data.username} connected`);
   socket.emit("connected", socket.data as Player);
   socket.on("disconnect", (reason) => {
-    console.log(`Player ${socket.data.username} disconnected, reason: ${reason}`)
-  })
+    console.log(`Player ${socket.data.username} disconnected, reason: ${reason}`);
+  });
 });
 
 setupLobby(io);

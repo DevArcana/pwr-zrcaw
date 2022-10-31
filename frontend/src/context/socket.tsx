@@ -9,7 +9,6 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, { aut
 const makeContext = () => {
   const [ getPlayer, setPlayer ] = createSignal<Player | null>(null);
   const [ getAuthError, setAuthError ] = createSignal<string | null>(null);
-  const isAuthenticated = () => getPlayer() !== null;
 
   createEffect(() => {
     const player = getPlayer();
@@ -36,7 +35,7 @@ const makeContext = () => {
 
     socket.on("updated", (player) => {
       setPlayer(player);
-    })
+    });
   });
 
   onCleanup(() => {

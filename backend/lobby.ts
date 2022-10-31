@@ -6,7 +6,7 @@ let lobby: GameSocket[] = [];
 export function setupLobby(io: GameServer) {
   io.on("connect", (socket) => {
     socket.on("disconnect", () => {
-      lobby = lobby.filter(x => x.id !== socket.id)
+      lobby = lobby.filter(x => x.id !== socket.id);
     });
 
     socket.on("lobby_join", (callback) => {
@@ -27,7 +27,7 @@ export function setupLobby(io: GameServer) {
     });
 
     socket.on("lobby_leave", (callback) => {
-      lobby = lobby.filter(x => x.id !== socket.id)
+      lobby = lobby.filter(x => x.id !== socket.id);
 
       socket.data.status = "idle";
       socket.emit("updated", socket.data as Player);

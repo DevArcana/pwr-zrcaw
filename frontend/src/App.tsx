@@ -1,24 +1,24 @@
 import type { Component } from "solid-js";
-import { useSocketContext } from "./context/socket";
 import { createSignal, Match, Show, Switch } from "solid-js";
+import { useSocketContext } from "./context/socket";
 
 const App: Component = () => {
-  const {getPlayer, signIn, signOut, socket} = useSocketContext();
-  const [getBusy, setBusy] = createSignal(false);
+  const { getPlayer, signIn, signOut, socket } = useSocketContext();
+  const [ getBusy, setBusy ] = createSignal(false);
 
   const joinLobby = () => {
     setBusy(true);
     socket.emit("lobby_join", () => {
       setBusy(false);
-    })
-  }
+    });
+  };
 
   const leaveLobby = () => {
     setBusy(true);
     socket.emit("lobby_leave", () => {
       setBusy(false);
-    })
-  }
+    });
+  };
 
   return (
     <div>
