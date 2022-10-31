@@ -6,6 +6,8 @@ export interface ServerToClientEvents {
   updated: (player: Player) => void;
 
   game_move: (state: GameState) => void;
+
+  scoreboard_update: (entry: Player) => void;
 }
 
 export interface ClientToServerEvents {
@@ -15,4 +17,7 @@ export interface ClientToServerEvents {
   game_ready: (callback: (state: GameState) => void) => void;
   game_move: (cellIndex: number, callback: (state: GameState) => void) => void;
   game_leave: () => void;
+
+  scoreboard_enter: (callback: (scoreboard: Player[]) => void) => void;
+  scoreboard_leave: () => void;
 }

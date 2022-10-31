@@ -4,6 +4,7 @@ import { useSocketContext } from "./context/socket";
 import Nav from "./components/Nav";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
+import Scoreboard from "./components/Scoreboard";
 
 const App: Component = () => {
   const { getPlayer, signIn, signOut, socket } = useSocketContext();
@@ -28,6 +29,7 @@ const App: Component = () => {
   return (
     <>
       <Nav/>
+      <Scoreboard/>
       <Main/>
       <Footer/>
     </>

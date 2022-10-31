@@ -2,4 +2,5 @@
   display: flex;
   justify-content: space-between;
   padding: var(--size-4);
+  grid-column: span 3;
 }

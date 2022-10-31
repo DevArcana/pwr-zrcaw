@@ -1,6 +1,7 @@
 import { GameServer, GameSocket } from "./models/socket";
 import { Player } from "../shared/player";
 import { Game } from "./game";
+import { io } from "./app";
 
 let lobby: GameSocket[] = [];
 
@@ -29,6 +30,7 @@ export function setupLobby(io: GameServer) {
 
           socket.data.status = "lobby";
           socket.emit("updated", socket.data as Player);
+          io.to("scoreboard").emit("scoreboard_update", socket.data as Player);
           console.log(`Player ${socket.data.username} entered the lobby`);
         }
         else {
@@ -36,13 +38,15 @@ export function setupLobby(io: GameServer) {
           player_b.data.status = "in-game";
           player_a.emit("updated", player_a.data as Player);
           player_b.emit("updated", player_b.data as Player);
-
+          io.to("scoreboard").emit("scoreboard_update", player_a.data as Player);
+          io.to("scoreboard").emit("scoreboard_update", player_b.data as Player);
           console.log(`Player ${player_a.data.username} entered the lobby and found a match with ${player_b.data.username}`);
-          const game = new Game(player_a, player_b);
+          new Game(player_a, player_b);
         }
       } else {
         socket.data.status = "lobby";
         socket.emit("updated", socket.data as Player);
+        io.to("scoreboard").emit("scoreboard_update", socket.data as Player);
         console.log(`Player ${socket.data.username} entered the lobby`);
       }
 
@@ -54,6 +58,7 @@ export function setupLobby(io: GameServer) {
 
       socket.data.status = "idle";
       socket.emit("updated", socket.data as Player);
+      io.to("scoreboard").emit("scoreboard_update", socket.data as Player);
       console.log(`Player ${socket.data.username} left the lobby`);
 
       callback();

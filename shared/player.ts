@@ -1,5 +1,5 @@
 export interface Player {
   username: string;
-  status: "idle" | "lobby" | "in-game";
+  status: "disconnected" | "idle" | "lobby" | "in-game";
   score: number;
 }

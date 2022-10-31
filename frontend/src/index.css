@@ -19,4 +19,5 @@ code {
   min-height:         100vh;
   display:            grid;
   grid-template-rows: auto 1fr auto;
+  grid-template-columns: 0.33fr 1fr 0.33fr;
 }

@@ -2,4 +2,5 @@
   display:         flex;
   justify-content: center;
   align-items:     center;
+  grid-column-start: 2;
 }

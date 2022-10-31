@@ -1,0 +1,11 @@
+.footer {
+  grid-column:     span 3;
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+  padding:         var(--size-4);
+}
+
+.footer small {
+  max-inline-size: none;
+}

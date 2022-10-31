@@ -2,6 +2,7 @@ import { GameSocket } from "./models/socket";
 import { GameBoard, GameMove, GameState, GameStatus } from "../shared/game";
 import { Player } from "../shared/player";
 import { Scoreboard } from "./entity/Scoreboard";
+import { io } from "./app";
 
 const win_conditions = [
   0b111000000,
@@ -75,9 +76,11 @@ export class Game {
       this.status = "o_won";
       this.update_score();
       this.player_o.emit("game_move", this.game_state);
+      io.to("scoreboard").emit("scoreboard_update", this.player_o.data as Player);
     }
     this.player_x.data.status = "idle";
     this.player_x.emit("updated", this.player_x.data as Player);
+    io.to("scoreboard").emit("scoreboard_update", this.player_x.data as Player);
     this.player_x_clean_up();
   };
 
@@ -86,9 +89,11 @@ export class Game {
       this.status = "x_won";
       this.update_score();
       this.player_x.emit("game_move", this.game_state);
+      io.to("scoreboard").emit("scoreboard_update", this.player_x.data as Player);
     }
     this.player_o.data.status = "idle";
     this.player_o.emit("updated", this.player_o.data as Player);
+    io.to("scoreboard").emit("scoreboard_update", this.player_o.data as Player);
     this.player_o_clean_up();
   };
 
@@ -196,5 +201,6 @@ export class Game {
     await row.save();
     player.data.score = row.score;
     player.emit("updated", player.data as Player);
+    io.to("scoreboard").emit("scoreboard_update", player.data as Player);
   }
 }
