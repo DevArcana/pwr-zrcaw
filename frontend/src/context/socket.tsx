@@ -33,11 +33,20 @@ const makeContext = () => {
     socket.on("disconnect", () => {
       setPlayer(null);
     });
+
+    socket.on("updated", (player) => {
+      setPlayer(player);
+    })
   });
 
   onCleanup(() => {
     socket.off("connected");
     socket.off("disconnect");
+    socket.off("updated");
+
+    if (socket.connected) {
+      socket.disconnect();
+    }
   });
 
   const signIn = (username: string) => {
@@ -51,7 +60,7 @@ const makeContext = () => {
     }
   };
 
-  return { getPlayer, signIn, signOut };
+  return { getPlayer, signIn, signOut, socket };
 };
 
 type ContextType = ReturnType<typeof makeContext>
