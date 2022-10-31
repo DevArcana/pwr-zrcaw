@@ -143,7 +143,7 @@ export class Game {
 
   match_win_conditions(move: GameMove): boolean {
     const state = this.calculate_binary_state(move);
-    if (win_conditions.some(x => x == state)) {
+    if (win_conditions.some(x => (x & state) == x)) {
       this.status = move == "x" ? "x_won" : "o_won";
       return true;
     }
