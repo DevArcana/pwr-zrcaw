@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^18.11.8
+  dotenv: ^16.0.3
   nodemon: ^2.0.20
   pg: ^8.4.0
   reflect-metadata: ^0.1.13
@@ -11,6 +12,7 @@ specifiers:
   typescript: ^4.8.4
 
 dependencies:
+  dotenv: 16.0.3
   pg: 8.8.0
   reflect-metadata: 0.1.13
   socket.io: 4.5.3

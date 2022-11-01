@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 import { GameServer } from "./models/socket";
 import { Player } from "../shared/player";
 import { setupLobby } from "./lobby";
@@ -6,7 +9,7 @@ import { Scoreboard } from "./entity/Scoreboard";
 
 export const io = new GameServer({
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.CORS_ORIGIN,
   },
 });
 
