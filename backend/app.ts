@@ -13,6 +13,8 @@ export const io = new GameServer({
   },
 });
 
+console.log("allowed cors origin: " + process.env.CORS_ORIGIN)
+
 AppDataSource.initialize().then(async () => {
   io.use(async (socket, next) => {
     const username = socket.handshake.auth.username;

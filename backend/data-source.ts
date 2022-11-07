@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { Scoreboard } from "./entity/Scoreboard";
 
 const create_data_source = () => {
+  console.log("waiting for database")
   while (true) {
     try {
       const source = new DataSource({

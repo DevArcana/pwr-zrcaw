@@ -2,8 +2,7 @@ version: '3'
 services:
   postgres:
     image: "postgres:14.5"
-    ports:
-      - "5432:5432"
+    container_name: "ttt-db"
     environment:
       POSTGRES_USER: "test"
       POSTGRES_PASSWORD: "test"
@@ -12,10 +11,12 @@ services:
   backend:
     build:
       context: ./backend/
+    image: "devarcana/ttt-backend:latest"
+    container_name: "ttt-backend"
     ports:
-      - "8081:3001"
+      - "3001:3001"
     environment:
-      CORS_ORIGIN: "http://localhost:8080"
+      CORS_ORIGIN: "http://pwr-z-loadb-r8q6b2ya0xv1-1416532704.us-east-1.elb.amazonaws.com/"
       DATABASE_HOST: "postgres"
       DATABASE_PORT: "5432"
       DATABASE_USERNAME: "test"
@@ -27,9 +28,11 @@ services:
   frontend:
     build:
       context: ./frontend/
+    image: "devarcana/ttt-frontend:latest"
+    container_name: "ttt-frontend"
     ports:
-      - "8080:80"
+      - "80:80"
     environment:
-      API_URL: "http://localhost:8081"
+      API_URL: "http://pwr-z-loadb-r8q6b2ya0xv1-1416532704.us-east-1.elb.amazonaws.com:3001"
     depends_on:
       - backend
