@@ -9,11 +9,9 @@ import { Scoreboard } from "./entity/Scoreboard";
 
 export const io = new GameServer({
   cors: {
-    origin: process.env.CORS_ORIGIN,
+    origin: "*",
   },
 });
-
-console.log("allowed cors origin: " + process.env.CORS_ORIGIN)
 
 AppDataSource.initialize().then(async () => {
   io.use(async (socket, next) => {

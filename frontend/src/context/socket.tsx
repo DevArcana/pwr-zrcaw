@@ -3,8 +3,7 @@ import { ClientToServerEvents, ServerToClientEvents } from "../../../shared/mess
 import { createContext, createEffect, createSignal, onCleanup, onMount, ParentComponent, useContext } from "solid-js";
 import { Player } from "../../../shared/player";
 
-const URL = (await (await fetch("/config.json")).json()).api as string;
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, { autoConnect: false });
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(window.location.origin, { autoConnect: false });
 
 const makeContext = () => {
   const [ getPlayer, setPlayer ] = createSignal<Player | null>(null);
