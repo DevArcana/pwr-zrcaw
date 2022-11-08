@@ -24,6 +24,18 @@ cd ..
 
 # Building the containers
 
+Please first ensure that you have access to the images specified in the `docker-compose.yml`:
+
+```yaml
+  backend:
+    build:
+      context: ./backend/
+    image: "devarcana/ttt-backend:latest"
+```
+
+In this case I am pushing directly to my private repository on Docker Hub named `devarcana/ttt-backend` with the tag `latest`.
+Create the repository on Docker Hub first.
+
 ```shell
 docker compose build
 docker compose push
