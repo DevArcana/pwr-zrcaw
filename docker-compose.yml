@@ -11,7 +11,7 @@ services:
   backend:
     build:
       context: ./backend/
-    image: "devarcana/ttt-backend:latest"
+    image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-backend:latest"
     container_name: "ttt-backend"
     environment:
       DATABASE_HOST: "postgres"
@@ -25,7 +25,7 @@ services:
   frontend:
     build:
       context: ./frontend/
-    image: "devarcana/ttt-frontend:latest"
+    image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-frontend:latest"
     container_name: "ttt-frontend"
     ports:
       - "80:80"
