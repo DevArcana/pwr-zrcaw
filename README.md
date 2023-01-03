@@ -39,4 +39,55 @@ Save, then choose Create app.
 larger instance type, it will be terminated.
 ```
 
-I followed the instructions and created the application with default environment.
+I followed the instructions and created the application with default environment. Then, using the `eb cli` I initialized the configuration files in the local repository to point at the created app.
+
+```shell
+❯ eb init
+
+Select a default region
+1) us-east-1 : US East (N. Virginia)
+2) us-west-1 : US West (N. California)
+3) us-west-2 : US West (Oregon)
+4) eu-west-1 : EU (Ireland)
+5) eu-central-1 : EU (Frankfurt)
+6) ap-south-1 : Asia Pacific (Mumbai)
+7) ap-southeast-1 : Asia Pacific (Singapore)
+8) ap-southeast-2 : Asia Pacific (Sydney)
+9) ap-northeast-1 : Asia Pacific (Tokyo)
+10) ap-northeast-2 : Asia Pacific (Seoul)
+11) sa-east-1 : South America (Sao Paulo)
+12) cn-north-1 : China (Beijing)
+13) cn-northwest-1 : China (Ningxia)
+14) us-east-2 : US East (Ohio)
+15) ca-central-1 : Canada (Central)
+16) eu-west-2 : EU (London)
+17) eu-west-3 : EU (Paris)
+18) eu-north-1 : EU (Stockholm)
+19) eu-south-1 : EU (Milano)
+20) ap-east-1 : Asia Pacific (Hong Kong)
+21) me-south-1 : Middle East (Bahrain)
+22) af-south-1 : Africa (Cape Town)
+(default is 3): 1
+
+
+Select an application to use
+1) tic-tac-toe
+2) [ Create new Application ]
+(default is 2): 1
+
+Do you wish to continue with CodeCommit? (Y/n): n
+```
+
+To deploy the application, I needed to modify the `docker-compose.yml` file to remove the `build` section.
+I backed up the original file to `docker-compose.build.yml` and removed `build` sections from `docker-compose.yml`.
+With that done, I could deploy the source code using `eb deploy`:
+
+```shell
+eb deploy
+```
+
+The application was deployed correctly and I could finally connect to it.
+
+# Migrating to RDS
+
+So far I have been using an ephemeral postgres container for the database which meant losing the scoreboard each deployment.

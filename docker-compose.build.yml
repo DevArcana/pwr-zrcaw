@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: "test"
 
   backend:
+    build:
+      context: ./backend/
     image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-backend:latest"
     container_name: "ttt-backend"
     environment:
@@ -21,7 +23,9 @@ services:
       - postgres
 
   frontend:
-    image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-frontend:latest"
+    build:
+      context: ./frontend/
+    image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-frontend"
     container_name: "ttt-frontend"
     ports:
       - "80:80"
