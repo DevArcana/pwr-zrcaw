@@ -1,22 +1,8 @@
 version: '3'
 services:
-  postgres:
-    image: "postgres:14.5"
-    container_name: "ttt-db"
-    environment:
-      POSTGRES_USER: "test"
-      POSTGRES_PASSWORD: "test"
-      POSTGRES_DB: "test"
-
   backend:
     image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-backend:latest"
     container_name: "ttt-backend"
-    environment:
-      DATABASE_HOST: "postgres"
-      DATABASE_PORT: "5432"
-      DATABASE_USERNAME: "test"
-      DATABASE_PASSWORD: "test"
-      DATABASE_NAME: "test"
     depends_on:
       - postgres
 

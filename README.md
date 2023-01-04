@@ -91,3 +91,45 @@ The application was deployed correctly and I could finally connect to it.
 # Migrating to RDS
 
 So far I have been using an ephemeral postgres container for the database which meant losing the scoreboard each deployment.
+
+I created RDS postgres database in the [dashboard](https://us-east-1.console.aws.amazon.com/rds/home?region=us-east-1#launch-dbinstance:gdb=false;s3-import=false).
+For the size, I chose "free-tier". The name was set to "db-tic-tac-toe".
+The minimum storage I set to 20GB and disabled storage autoscaling.
+I also disabled monitoring as per instructions for the learning lab.
+I used the "Set up EC2 connection" option and chose "Tictactoe-env-1" from the list.
+
+Finally, in the Beanstalk console, I chose "Configuration", then "Software" and at the bottom filled in the necessary environment variables pertaining to the database connection.
+
+The settings are based on the RDS console and look as follows:
+
+```
+DATABASE_HOST: "db-tic-tac-toe.cjzw0zlfjudw.us-east-1.rds.amazonaws.com"
+DATABASE_PORT: "5432"
+DATABASE_USERNAME: "postgres"
+DATABASE_PASSWORD: "*password*"
+DATABASE_NAME: "test"
+```
+
+After that it was time to delete the database service from `docker-compose.yml` altogether.
+The final version of `docker-compose.yml` looked like so:
+
+```yml
+version: '3'
+services:
+  backend:
+    image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-backend:latest"
+    container_name: "ttt-backend"
+    depends_on:
+      - postgres
+
+  frontend:
+    image: "088582823373.dkr.ecr.us-east-1.amazonaws.com/ttt-frontend:latest"
+    container_name: "ttt-frontend"
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+```
+
+Finaly deployment and I could test if the app still worked as expected.
+The app works just as before.
