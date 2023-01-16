@@ -181,3 +181,17 @@ User: arn:aws:sts::088582823373:assumed-role/voclabs/user2196238=Piotr_Krzystane
 The only option left to try was to restore the snapshot directly.
 This lead to the creation of a new database I called `restored-database`.
 This operation creates a new database with the contents taken from the saved snapshot instead of rolling back the state of the original database.
+
+# Cloudwatch
+
+First, I navigated to the following location in AWS:
+`Cloudwatch > Getting started > Create a dashboard`
+
+For the name of the dashboard I chose `tic-tac-toe-dashboard`.
+I added an `Explorer` widget and set the type to `pre-filled` with *Elastic Beanstalk* template.
+
+Again encountered a problem when trying to open the details of the environment:
+
+```
+A problem occurred while loading your page: User: arn:aws:sts::088582823373:assumed-role/voclabs/user2196238=Piotr_Krzystanek is not authorized to perform: autoscaling:DescribeAutoScalingGroups because no identity-based policy allows the autoscaling:DescribeAutoScalingGroups action
+```
