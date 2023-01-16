@@ -184,14 +184,67 @@ This operation creates a new database with the contents taken from the saved sna
 
 # Cloudwatch
 
-First, I navigated to the following location in AWS:
-`Cloudwatch > Getting started > Create a dashboard`
-
-For the name of the dashboard I chose `tic-tac-toe-dashboard`.
-I added an `Explorer` widget and set the type to `pre-filled` with *Elastic Beanstalk* template.
-
-Again encountered a problem when trying to open the details of the environment:
+First, I navigated to *Elastic Beanstalk* to configure *Cloudwatch* log streaming.
+I encountered a problem when trying to open the details of the environment:
 
 ```
 A problem occurred while loading your page: User: arn:aws:sts::088582823373:assumed-role/voclabs/user2196238=Piotr_Krzystanek is not authorized to perform: autoscaling:DescribeAutoScalingGroups because no identity-based policy allows the autoscaling:DescribeAutoScalingGroups action
+```
+
+After a while the problem resolved itself...
+
+First, I opened the *Elastic Beanstalk* application environmnet called `Tictactoe-env-1` and chose `Configuration` and `Software`.
+Then, I scrolled down to the `Instance log streaming to CloudWatch Logs` section and enabled log streaming.
+After the configuration updated itself, I could see the logs in *Cloudwatch* under [the following link](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs:prefix=/aws/elasticbeanstalk/Tictactoe-env-1/).
+
+For alarms, I used the *Cloudwatch* tab and selected *Alarms*.
+
+I created a *Billing* alarm to start when the `EstimatedCharges` metric exceeds 0.001 USD in the last 6 hours.
+For the notification, I used the student e-mail address.
+
+Another alarm I created used the `Tictactoe-env-1` environment from *Elastic Beanstalk* for the source of the metrics.
+The chosen metric was `EnvironmentHealth` and used the following codes:
+
+0 – OK
+
+1 – Info
+
+5 – Unknown
+
+10 – No data
+
+15 – Warning
+
+20 – Degraded
+
+25 – Severe
+
+This meant the best choice for this alarm was to set it to `Maximum` of last hour and set it to `>=10`.
+
+# CloudTrail
+
+I opened `CloudTrail > Create trail`: https://us-east-1.console.aws.amazon.com/cloudtrail/home?region=us-east-1#/create/quick
+
+Left the trail name as default `management-events`.
+
+*The option to create an organization trail is not available for this AWS account. [Learn more](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/creating-an-organizational-trail-prepare.html?icmpid=docs_cloudtrail_console#org_trail_permissions)*
+
+```
+com.amazonaws.services.organizations.model.AccessDeniedException: You don't have permissions to access this resource. (Service: AWSOrganizations; Status Code: 400; Error Code: AccessDeniedException; Request ID: c77973c0-7673-471e-bbe5-dea59f75fc3c; Proxy: null)
+```
+
+Luckily, it seems the *Cloudtrail* configuration works for the use-case I wanted:
+
+```
+RestartAppServer	January 16, 2023, 18:00:38 (UTC+01:00)	elasticbeanstalk.amazonaws.com
+```
+
+# Amazon Insector
+
+```
+Unable to determine account status due to insufficient permissions. Add the following permissions to this account: inspector2:BatchGetAccountStatus
+```
+
+```
+Cannot activate account due to insufficient permissions. Add the following permissions: inspector2:Enable
 ```
